@@ -86,6 +86,8 @@ class AnggotaController extends Controller
      */
     public function edit($id)
     {
+        $anggota = Anggota::findOrFail($id);
+        return view('anggota.edit',compact('anggota'));
     }
 
     /**
@@ -97,7 +99,47 @@ class AnggotaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'user_id' => 'required|max:5',
+            'nama' => 'required ',
+            'jenis_kel' => 'required ',
+            'telepon' => 'required',
+            'email' => 'required|email',
+            'foto' => 'required',
+        ]);
+
+        $ang = Anggota::find($id);
+        $foto = $request->file('foto');
+        //membaca extensi file gambar
+        $ext = $request->file('foto')->getClientOriginalExtension();
+        //memberi file menggunakan no anggota
+        $namaFile = request()->get('id') . '.' . $ext;
+        //menyimpan ke folder public/foto/...
+        $request->file('foto')->move('foto', $namaFile);
+        // $ang->nama = $request->nama;
+        // $ang->tanggal_lhr = $request->tanggal_lhr;
+        // $ang->jenis_kel = $request->jenis_kel;
+        // $ang->alamat = $request->alamat;
+        // $ang->telepon = $request->telepon;
+        // $ang->email = $request->email;
+        // $ang->foto = $namaFile;
+        // $ang->user_id = $request->user_id;
+        $request['foto'] = $namaFile;
+
+        print request()->get('id');
+        print $namaFile;
+        print "<br>";
+        print $request->foto;
+
+        // Anggota::findOrFail($id)->update($request->all());
+        // // $anggota = new Anggota($request->all());
+        // // $anggota->foto = $namaFile;
+        // // $anggota->save();
+        // return redirect()->route('anggota.index')
+        //     ->with(
+        //         'success',
+        //         'Perubahan Anggota telah berhasil disimpan'
+        //     );
     }
 
     /**

@@ -11,9 +11,9 @@
                                 <h3>Lihat Detail Pegawai {{ $anggota->user_id }}</h3>
                             </span>
                         </div>
-                        <div class="float-right">
+                        <div class="pull-right">
                             <a class="btn btn-primary" href="{{ route('anggota.edit',$anggota->id) }}">
-                                Kembali</a>
+                                Ubah</a>
                             <a class="btn btn-primary" href="{{ route('anggota.index') }}">
                                 Kembali</a>
                         </div>
@@ -21,7 +21,7 @@
 
                     <div class="card-body">
 
-                        <table class="table table-sm">
+                        <table class="table table-sm table-striped">
                             <tr>
                                 <td style="width: 200px;">
                                     <strong>Nomor </strong>
@@ -58,7 +58,7 @@
                             <tr>
                                 <td><strong>Foto</strong></td>
                                 <td>: <img
-                                        src="{{ URL::to('/foto/' . $anggota->foto) }}">
+                                        src="{{ URL::to('/foto/' . $anggota->foto) }}" class="img-rounded img-responsive" style="width: 200px">
                                 </td>
                             </tr>
                         </table>
